@@ -1,7 +1,9 @@
 source("covid_est_exponencial.R") ## pra garantir dados o mais atualizados o possivel
 library(zoo) ## Manipulacao de time series, agora nao muito importante, mas pode ser depois
 
-## Italia: todos os dados
+################################################################################
+## Italia
+################################################################################
 italia.n <- as.matrix(data[data$Country.Region=="Italy",-(1:4)])
 dim(italia.n) <- NULL
 ## Junta às datas (depende do outro codigo
@@ -28,7 +30,7 @@ italia.fim.fit <- glm(y~x, family=poisson)
 ## Coeficientes
 coef(italia.inicio.fit)[2]
 coef(italia.fim.fit)[2]
-## tempos de duplicacao
+## tempos de duplicacao ##
 ## Inicio
 log(2)/coef(italia.inicio.fit)[2]
 ## Atual
@@ -38,3 +40,23 @@ log(2)/coef(italia.fim.fit)[2]
 log(2)/confint(italia.inicio.fit)[2,]
 ## Fim
 log(2)/confint(italia.fim.fit)[2,]
+
+################################################################################
+## Brasil
+################################################################################
+brasil.raw <- read.csv("brazil_wikipedia_timeseries.csv", as.is=TRUE)
+## Converte para time series
+brasil <- zoo(x=brasil.raw$casos.acumulados,
+              order.by = as.Date(brasil.raw$dia, "%d-%m-%Y"))
+plot(brasil, type="p")
+## Ultimos 7 dias
+y <- brasil[(length(brasil)-dias.final+1):length(brasil)]
+brasil.fim.fit <- glm(y~x, family=poisson)
+## Coeficientes
+coef(brasil.fim.fit)[2]
+## tempos de duplicacao ##
+## Atual
+log(2)/coef(brasil.fim.fit)[2]
+## Intervalos de confianca
+## Fim
+log(2)/confint(brasil.fim.fit)[2,]
