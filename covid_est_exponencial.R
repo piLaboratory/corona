@@ -8,7 +8,7 @@ data <- read.csv("https://raw.githubusercontent.com/CSSEGISandData/COVID-19/mast
 ## Dados em matriz com paises/regios nas linhas e dias nas colunas
 ## Cria vetor com as datas de cada dia em formato Date 
 datas <- as.Date(gsub("X","",colnames(data)[-c(1:4)]), "%m.%d.%y")
-## Seleciona regioes/paise com pelo menos 90 casos
+## Seleciona regioes/paises com pelo menos 90 casos
 n.corte.casos <- 90
 max.cases <- apply(data[,-c(1:4)], 1, max)
 data.2 <- data[max.cases> n.corte.casos, ]
