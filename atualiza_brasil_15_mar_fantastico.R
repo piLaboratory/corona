@@ -1,3 +1,4 @@
+source("china_italia_brasil.R")
 ## data de hoje
 hoje <- as.Date("2020-03-15", "%Y-%m-%d")
 ## Escreva aqui n de casos
