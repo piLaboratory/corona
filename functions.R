@@ -26,7 +26,7 @@ fitP.zoo <- function(zoo.obj, family=poisson, only.coef=TRUE){
 
 ## Corta uma seria temporal da classe zoo, tirando todos os valores anteriores ao primeiro valor igual
 ## a um certo limite (n.casos). Para fazer a serie a partir do dia zero
-diazero <- function(zoo.obj, limite.x){
+diazero <- function(zoo.obj, limite){
     dia.zero <- min(which(zoo.obj>=limite, arr.ind=TRUE))
     zoo.obj[dia.zero:length(zoo.obj)]
     }
