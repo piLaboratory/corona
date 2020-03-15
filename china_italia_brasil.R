@@ -6,9 +6,8 @@ library(zoo) ## Manipulacao de time series, agora nao muito importante, mas pode
 ################################################################################
 italia.n <- as.matrix(data[data$Country.Region=="Italy",-(1:4)])
 dim(italia.n) <- NULL
-## Junta às datas (depende do outro codigo
-italia <- zoo(x = italia.n[italia.dia.zero:length(italia.n)],
-              order.by= datas[italia.dia.zero:length(italia.n)])
+## Junta às datas
+italia <- zoo(x = italia.n, order.by= datas)
 ## Um plot da serie temporal completa
 plot(italia, type="p")
 
