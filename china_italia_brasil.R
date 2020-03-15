@@ -40,6 +40,14 @@ log(2)/confint(italia.inicio.fit)[2,]
 ## Fim
 log(2)/confint(italia.fim.fit)[2,]
 
+
+## Italia oms
+italia.raw <- read.csv("https://covid.ourworldindata.org/data/full_data.csv", as.is=TRUE) %>%
+    filter(location=="Italy") %>%
+    select(date,total_cases)
+italia.oms <- zoo(x = italia.raw$total_cases,
+             order.by = as.Date(italia.raw$date, "%Y-%m-%d"))
+
 ################################################################################
 ## Brasil
 ################################################################################
@@ -59,6 +67,7 @@ log(2)/coef(brasil.fim.fit)[2]
 ## Intervalos de confianca
 ## Fim
 log(2)/confint(brasil.fim.fit)[2,]
+
 
 ################################################################################
 ## China
