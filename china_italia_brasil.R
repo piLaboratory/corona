@@ -48,7 +48,7 @@ brasil.raw <- read.csv("brazil_wikipedia_timeseries.csv", as.is=TRUE)
 ## Converte para time series
 brasil <- zoo(x=brasil.raw$casos.acumulados,
               order.by = as.Date(brasil.raw$dia, "%d-%m-%Y"))
-plot(brasil, type="p")
+plot(brasil, log="x", type="p")
 ## Ultimos 7 dias
 y <- brasil[(length(brasil)-dias.final+1):length(brasil)]
 brasil.fim.fit <- glm(y~x, family=poisson)
