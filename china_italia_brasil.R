@@ -48,6 +48,20 @@ italia.raw <- read.csv("https://covid.ourworldindata.org/data/full_data.csv", as
 italia.oms <- zoo(x = italia.raw$total_cases,
              order.by = as.Date(italia.raw$date, "%Y-%m-%d"))
 
+## Verificando imapcto dos ajustes lineares
+## N de casos dia zero
+it.oms.n <- 75
+
+italia.oms.76 <- fitP.zoo(italia.oms[min(which(italia.oms>it.oms.n, arr.ind=TRUE)):length(italia.oms)], only.coef=FALSE)
+italia.oms.fim <- fitP.zoo(italia.oms[(length(italia.oms)-7): length(italia.oms)], only.coef=FALSE)
+## Previstos pelos dois modelos
+newdata <- data.frame(ndias=rev(max(time(italia.oms))-time(italia.oms[which(italia.oms>it.oms.n, arr.ind=TRUE)])))
+it.fit.76 <- predict(italia.oms.76, newdata=newdata, type="response")
+## plot
+plot(italia.oms[min(which(italia.oms>it.oms.n, arr.ind=TRUE)):length(italia.oms)], log="y", type="p")
+lines(zoo(it.fit.76, time(italia.oms[min(which(italia.oms>it.oms.n, arr.ind=TRUE)):length(italia.oms)])),col="blue")
+
+
 ################################################################################
 ## Brasil
 ################################################################################
