@@ -9,7 +9,7 @@ brasil.rw <- runner(brasil.d0, function(x) log(2)/fitP.zoo(x)["coef"], k =k, idx
 plot(zoo(brasil.rw, time(brasil.d0)))
 
 italia.d0 <- diazero(italia.oms,15)
-italia.rw <- runner(italia.d0, function(x) log(2)/fitP.zoo(x), k =k, idx = time(italia.d0))%>%
+italia.rw <- runner(italia.d0, function(x) log(2)/fitP.zoo(x)[c(2,5,6)], k =k, idx = time(italia.d0))%>%
     t() %>%
     zoo(time(italia.d0))
 plot(zoo(italia.rw["coef",],time(italia.d0)))
